@@ -16,6 +16,6 @@ export default Vue.extend({
     goProduct() {
       this.$router.push('/products');
     }
-  }
+  },
 })
 </script>
