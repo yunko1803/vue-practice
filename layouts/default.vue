@@ -12,9 +12,9 @@ export default Vue.extend({
 </script>
 
 <style>
-html {
+/* html {
   font-family: 'Open Sans', 'sans-serif';
-}
+} */
 
 body {
   margin: 0;
