@@ -11,6 +11,7 @@ import Vue from 'vue'
 import AdminPostForm from '@/components/Admin/AdminPostForm.vue'
 
 export default Vue.extend({
+  layout: 'admin',
   components: {
     AdminPostForm
   },
