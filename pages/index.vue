@@ -3,37 +3,20 @@
     <section class="intro">
       <h1>Get the latest tech news!</h1>
     </section>
-    <section class="featured-posts">
-      <PostPreview
-        id="1"
-        thumbnail="https://assets.thehansindia.com/h-upload/2021/07/31/1092805-tech.webp"
-        title="hello there"
-        previewText="This is my first post"
-      />
-      <PostPreview
-        id="2"
-        thumbnail="https://assets.thehansindia.com/h-upload/2021/07/31/1092805-tech.webp"
-        title="hello there"
-        previewText="This is my second post"
-      />
-      <PostPreview
-        id="3"
-        thumbnail="https://assets.thehansindia.com/h-upload/2021/07/31/1092805-tech.webp"
-        title="hello there"
-        previewText="This is my third post"
-      />
-    </section>
+    <PostList />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import PostPreview from '@/components/Posts/PostPreview.vue'
+import PostList from '@/components/Posts/PostList.vue'
 
 export default Vue.extend({
   name: 'IndexPage',
   components: {
     PostPreview: PostPreview,
+    PostList
   }
 })
 </script>
@@ -68,15 +51,6 @@ export default Vue.extend({
   .intro h1 {
     font-size: 2rem;
   }
-}
-
-.featured-posts {
-  display: flex;
-  padding: 20px;
-  box-sizing: border-box;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
 }
 
 
