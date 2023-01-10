@@ -3,7 +3,7 @@
     <section class="intro">
       <h1>Get the latest tech news!</h1>
     </section>
-    <PostList />
+    <PostList :posts="loadedPosts" />
   </div>
 </template>
 
@@ -17,7 +17,26 @@ export default Vue.extend({
   components: {
     PostPreview: PostPreview,
     PostList
+  },
+  data() {
+    return {
+      loadedPosts: [
+        {
+          id: '1',
+          title: 'First post',
+          previewText: 'This is our first post',
+          thumbnail: 'https://assets.thehansindia.com/h-upload/2021/07/31/1092805-tech.webp',
+        },
+        {
+          id: '2',
+          title: 'Second post',
+          previewText: 'This is our second post',
+          thumbnail: 'https://assets.thehansindia.com/h-upload/2021/07/31/1092805-tech.webp',
+        }
+      ]
+    }
   }
+
 })
 </script>
 
