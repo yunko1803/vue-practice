@@ -1,18 +1,38 @@
 <template>
   <div class="single-post-page">
     <section class="post">
-      <h1 class="post-title">Title of the post</h1>
+      <h1 class="post-title">{{ loadedPost.title }}</h1>
       <div class="post-details">
-        <div class="post-detail">Last Updated on XXX</div>
-        <div class="post-detail">Written by NAME</div>
+        <div class="post-detail">Last Updated on {{ loadedPost.updatedDate }}</div>
+        <div class="post-detail">Written by {{ loadedPost.author }}</div>
       </div>
-      <p class="post-content">Content of the post</p>
+      <p class="post-content">{{ loadedPost.content }}</p>
     </section>
     <section class="post-feedback">
       <p>let me know what you think about the post, send a mail to <a href="mailto:bear04012@gmail.com">bear04012@gmail.com</a></p>
     </section>
   </div>
 </template>
+
+<script>
+export default {
+  asyncData(context, callback) {
+    setTimeout(() => {
+      callback(null, {
+        loadedPost: {
+          id: '1',
+          title: `First post (ID: ${ context.params.id })`,
+          previewText: 'This is our first post',
+          thumbnail: 'https://assets.thehansindia.com/h-upload/2021/07/31/1092805-tech.webp',
+          author: 'Yoon',
+          updatedDate: new Date(),
+          content: 'some dummy text blahblahblahblahblahblahblah'
+        }
+      });
+    }, 1000);
+  }
+}
+</script>
 
 <style scoped>
 .single-post-page {

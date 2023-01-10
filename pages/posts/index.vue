@@ -1,6 +1,6 @@
 <template>
   <div class="posts-page">
-    <PostList />
+    <PostList :posts="this.loadedPosts" />
   </div>
 </template>
 
@@ -10,6 +10,26 @@ import PostList from '@/components/Posts/PostList.vue'
 export default Vue.extend({
   components: {
     PostList,
+  },
+  asyncData(context, callback) {
+    setTimeout(() => {
+      callback(null, {
+        loadedPosts : [
+          {
+            id: '1',
+            title: 'First post',
+            previewText: 'This is our first post',
+            thumbnail: 'https://assets.thehansindia.com/h-upload/2021/07/31/1092805-tech.webp',
+          },
+          {
+            id: '2',
+            title: 'Second post',
+            previewText: 'This is our second post',
+            thumbnail: 'https://assets.thehansindia.com/h-upload/2021/07/31/1092805-tech.webp',
+          }
+        ]
+      });
+    }, 1000);
   }
 })
 </script>
