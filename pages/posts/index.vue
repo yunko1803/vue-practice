@@ -11,36 +11,13 @@ export default Vue.extend({
   components: {
     PostList,
   },
-  asyncData(context) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve({
-          loadedPosts: [
-            {
-              id: '1',
-              title: 'First post',
-              previewText: 'This is our first post',
-              thumbnail: 'https://assets.thehansindia.com/h-upload/2021/07/31/1092805-tech.webp',
-            },
-            {
-              id: '2',
-              title: 'Second post',
-              previewText: 'This is our second post',
-              thumbnail: 'https://assets.thehansindia.com/h-upload/2021/07/31/1092805-tech.webp',
-            }
-          ]
-        });
-      }, 1000);
-    })
-    .then(data => {
-      return data;
-    })
-    .catch(e => {
-      context.error(e);
-    });
-  },
-  created() {
-    this.$store.dispatch('setPosts', this.loadedPosts);
+  // created() {
+  //   this.$store.dispatch('setPosts', this.loadedPosts);
+  // }
+  computed: {
+    loadedPosts() {
+      return this.$store.getters.loadedPosts
+    }
   }
 })
 </script>
