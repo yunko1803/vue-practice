@@ -81,10 +81,9 @@ const createStore = () => {
           const expirationDate = res.data.expiresIn * 1000;
           vuexContext.commit('setToken', jwt);
           localStorage.setItem('token', jwt);
-          localStorage.setItem('tokenExpiration', new Date().getTime() + expirationDate);
-          vuexContext.dispatch('setLogoutTimer', expirationDate);
+          localStorage.setItem('tokenExpiration', new Date().getTime() + +expirationDate);
           Cookie.set('jwt', jwt);
-          Cookie.set('expirationDate', new Date().getTime() + expirationDate);
+          Cookie.set('expirationDate', new Date().getTime() + +expirationDate);
         } catch (e) {
           console.error(e);
         }
@@ -106,11 +105,20 @@ const createStore = () => {
         } else {
           token = localStorage.getItem('token');
           expirationDate = localStorage.getItem('tokenExpiration');
-
-          if (!token || new Date().getTime() > +expirationDate) return;
         }
-        vuexContext.commit('setLogoutTimer', +expirationDate - new Date().getTime());
+        if (!token || new Date().getTime() > +expirationDate) {
+          console.log('No token or invalid token');
+          vuexContext.dispatch('logout');
+          return;
+        }
         vuexContext.commit('setToken', token);
+      },
+      logout(vuexContext) {
+        vuexContext.commit('clearToken');
+        Cookie.remove('jwt');
+        Cookie.remove('expirationDate');
+        localStorage.removeItem('token');
+        localStorage.removeItem('tokenExpiration');
       }
     },
     getters: {
