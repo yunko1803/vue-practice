@@ -1,5 +1,6 @@
 import Vuex from 'vuex'
 import axios from 'axios'
+import Cookie from 'js-cookie'
 
 const createStore = () => {
   return new Vuex.Store({
@@ -76,10 +77,14 @@ const createStore = () => {
             password: authData.password,
             returnSecureToken: true
           });
-          vuexContext.commit('setToken', res.data.idToken);
-          localStorage.setItem('token', res.data.idToken);
-          localStorage.setItem('tokenExpiration', new Date().getTime() + res.data.expiresIn * 1000);
-          vuexContext.dispatch('setLogoutTimer', res.data.expiresIn * 1000);
+          const jwt = res.data.idToken;
+          const expirationDate = res.data.expiresIn * 1000;
+          vuexContext.commit('setToken', jwt);
+          localStorage.setItem('token', jwt);
+          localStorage.setItem('tokenExpiration', new Date().getTime() + expirationDate);
+          vuexContext.dispatch('setLogoutTimer', expirationDate);
+          Cookie.set('jwt', jwt);
+          Cookie.set('expirationDate', new Date().getTime() + expirationDate);
         } catch (e) {
           console.error(e);
         }
@@ -89,12 +94,21 @@ const createStore = () => {
           vuexContext.commit('clearToken');
         }, duration);
       },
-      initAuth(vuexContext) {
-        const token = localStorage.getItem('token');
-        const expirationDate = localStorage.getItem('tokenExpiration');
+      initAuth(vuexContext, req) {
+        let token;
+        let expirationDate;
+        if (req) {
+          if (!req.headers.cookie) return;
+          const jwt = req.headers.cookie.split(';').find(c => c.trim().startsWith('jwt='));
+          if (!jwt) return;
+          token = jwt.split('=')[1];
+          expirationDate = req.headers.cookie.split(';').find(c => c.trim().startsWith('expirationDate=')).split('=')[1];
+        } else {
+          token = localStorage.getItem('token');
+          expirationDate = localStorage.getItem('tokenExpiration');
 
-        if (!token || new Date().getTime() > +expirationDate) return;
-
+          if (!token || new Date().getTime() > +expirationDate) return;
+        }
         vuexContext.commit('setLogoutTimer', +expirationDate - new Date().getTime());
         vuexContext.commit('setToken', token);
       }
