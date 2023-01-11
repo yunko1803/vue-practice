@@ -20,7 +20,6 @@ const createStore = () => {
             postsArray.push({
               ...res.data[key],
               id: key,
-              previewText: 'preview'
             });
           }
           vuexContext.commit('setPosts', postsArray);

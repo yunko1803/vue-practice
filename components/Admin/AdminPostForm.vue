@@ -13,6 +13,13 @@
       Content
     </AppControlInput>
 
+    <AppControlInput
+      control-type="textarea"
+      v-model="editedPost.previewText"
+    >
+      Preview Text
+    </AppControlInput>
+
     <AppButton type="submit">
       Save
     </AppButton>
@@ -50,6 +57,7 @@ export default Vue.extend({
         title: '',
         thumbnailLink: '',
         content: '',
+        previewText: '',
       }
     }
   },
