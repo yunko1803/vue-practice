@@ -11,6 +11,7 @@ export default Vue.extend({
   components: {
     PostList,
   },
+  middleware: 'log',
   // created() {
   //   this.$store.dispatch('setPosts', this.loadedPosts);
   // }
