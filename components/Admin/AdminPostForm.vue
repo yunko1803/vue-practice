@@ -64,7 +64,7 @@ export default Vue.extend({
     },
 
     onSave() {
-      console.log(this.editedPost);
+      this.$emit('submit', this.editedPost);
     }
   }
 })
