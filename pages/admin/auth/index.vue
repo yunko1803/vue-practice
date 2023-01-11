@@ -36,9 +36,12 @@ export default {
   },
   methods: {
     async onSubmit() {
-      console.log(process.env.fbAPIKey);
       try {
-        let res = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.fbAPIKey}`, {
+        let authUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.fbAPIKey}`;
+        if (this.isLogin) {
+          authUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.fbAPIKey}`;
+        }
+        let res = await axios.post(authUrl, {
           email: this.email,
           password: this.password,
           returnSecureToken: true
