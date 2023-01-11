@@ -16,6 +16,7 @@ import axios from 'axios'
 
 export default Vue.extend({
   layout: 'admin',
+  middleware: 'auth',
   components: {
     AdminPostForm
   },

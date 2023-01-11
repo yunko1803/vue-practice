@@ -48,7 +48,6 @@ export default Vue.extend({
     }
   },
   data() {
-    console.log(this);
     return {
       editedPost: this.post
         ? { ...this.post }

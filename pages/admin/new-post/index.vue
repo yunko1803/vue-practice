@@ -8,11 +8,11 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import axios from 'axios'
 import AdminPostForm from '@/components/Admin/AdminPostForm.vue'
 
 export default Vue.extend({
   layout: 'admin',
+  middleware: 'auth',
   components: {
     AdminPostForm
   },

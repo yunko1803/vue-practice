@@ -17,6 +17,7 @@ import AppButton from '@/components/Ui/AppButton.vue'
 
 export default Vue.extend({
   layout: 'admin',
+  middleware: 'auth',
   components: {
     PostList,
     AppButton,
