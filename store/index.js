@@ -46,14 +46,14 @@ const createStore = () => {
           ...post,
           updatedDate: new Date(),
         }
-        let res = await axios.post('https://nuxt-blog-381bf-default-rtdb.firebaseio.com/posts.json', createdPost);
+        let res = await axios.post(`https://nuxt-blog-381bf-default-rtdb.firebaseio.com/posts.json?auth=${vuexContext.state.token}`, createdPost);
         vuexContext.commit('addPost', {
           ...createdPost,
           id: res.data.name,
         });
       },
       async editPost(vuexContext, editedPost) {
-        let result = await axios.put(`https://nuxt-blog-381bf-default-rtdb.firebaseio.com/posts/${ editedPost.id }.json`, {
+        let result = await axios.put(`https://nuxt-blog-381bf-default-rtdb.firebaseio.com/posts/${ editedPost.id }.json?auth=${vuexContext.state.token}`, {
           ...editedPost,
           updatedDate: new Date(),
         });
