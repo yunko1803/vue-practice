@@ -36,20 +36,12 @@ export default {
   },
   methods: {
     async onSubmit() {
-      try {
-        let authUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.fbAPIKey}`;
-        if (this.isLogin) {
-          authUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.fbAPIKey}`;
-        }
-        let res = await axios.post(authUrl, {
-          email: this.email,
-          password: this.password,
-          returnSecureToken: true
-        });
-        console.log(res);
-      } catch (e) {
-        console.error(e);
-      }
+      await this.$store.dispatch('authenticateUser', {
+        email: this.email,
+        password: this.password,
+        isLogin: this.isLogin
+      });
+      this.$router.push('/admin');
     }
   }
 }
