@@ -9,20 +9,21 @@
 <script lang="ts">
 import Vue from 'vue'
 import AdminPostForm from '@/components/Admin/AdminPostForm.vue'
+import axios from 'axios'
 
 export default Vue.extend({
   layout: 'admin',
   components: {
     AdminPostForm
   },
-  data() {
-    return {
-      loadedPost: {
-        author: 'Yoon',
-        title: 'title',
-        content: 'content',
-        thumbnailLink: 'https://assets.thehansindia.com/h-upload/2021/07/31/1092805-tech.webp',
+  async asyncData(context) {
+    try {
+      let res = await axios.get(`https://nuxt-blog-381bf-default-rtdb.firebaseio.com/posts/${ context.params.postId }.json`);
+      return {
+        loadedPost: res.data,
       }
+    } catch (e) {
+      console.error(e);
     }
   }
 })
