@@ -18,7 +18,10 @@ export default Vue.extend({
   },
   methods: {
     async onSubmitted(postData) {
-      let result = await axios.post('https://nuxt-blog-381bf-default-rtdb.firebaseio.com/posts.json', postData);
+      let result = await axios.post('https://nuxt-blog-381bf-default-rtdb.firebaseio.com/posts.json', {
+        ...postData,
+        updatedDate: new Date(),
+      });
       this.$router.push('/');
     }
   }
